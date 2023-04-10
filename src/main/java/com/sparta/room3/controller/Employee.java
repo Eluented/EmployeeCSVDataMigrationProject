@@ -1,8 +1,10 @@
 package com.sparta.room3.controller;
 
+import javax.validation.constraints.Email;
 import java.util.Date;
 
 public class Employee {
+
 
     private int empID;
     private String namePrefix;
