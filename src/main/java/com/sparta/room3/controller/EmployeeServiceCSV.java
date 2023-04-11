@@ -2,6 +2,7 @@ package com.sparta.room3.controller;
 
 import com.sparta.room3.utils.CorruptedList;
 import com.sparta.room3.utils.DuplicateList;
+import com.sparta.room3.utils.EmployeeMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,10 +33,6 @@ public class EmployeeServiceCSV {
         int corruptedRecords=0;
         int duplicatedRecords=0;
 
-        HashMap<Integer, Employee> checkForDuplicates = new HashMap<>();
-
-
-        Set<Employee> employeeSet = new HashSet<>();
         Set<String> duplicateRecords = new HashSet<>();
         List<String> corruptRecords = new ArrayList<>();
 
@@ -131,12 +128,12 @@ public class EmployeeServiceCSV {
 
 
                 Employee employee = new Employee(empId, namePrefix, firstName, middleInitial, lastName, gender, email, dateOfBirth, dateOfJoining, salary);
-                if (checkForDuplicates.containsKey(employee.getEmpID()) == false) {
-                    checkForDuplicates.put(employee.getEmpID(), employee);
+                if (EmployeeMap.getEmployeeMap() == null ||EmployeeMap.getEmployeeMap().containsKey(employee.getEmpID()) == false) {
+                    EmployeeMap.addNewEmployeeToList(employee.getEmpID(), employee);
 
                 } else {
                     DuplicateList.addDuplicatesToList(employee);
-                    duplicateRecords.add(line);
+//                    duplicateRecords.add(line);
                     duplicatedRecords++;
 
                 }
@@ -145,8 +142,8 @@ public class EmployeeServiceCSV {
          //   System.out.println(employeeSet);
             System.out.println("Number of duplicate records: " + duplicatedRecords);
             System.out.println("Number of corrupted records: " + corruptedRecords);
-            System.out.println("Number of unique records: " +checkForDuplicates.size());
-            System.out.println(checkForDuplicates);
+            System.out.println("Number of unique records: " +EmployeeMap.getEmployeeMap().size());
+
 
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage(),e);
