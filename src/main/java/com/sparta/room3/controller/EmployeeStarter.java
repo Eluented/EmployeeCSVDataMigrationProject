@@ -1,5 +1,10 @@
 package com.sparta.room3.controller;
 
 public class EmployeeStarter {
-//    start the stuff up
+    public static void start() {
+
+        EmployeeServiceCSV.readCSVFile("src/main/resources/EmployeeRecords.csv");
+
+    }
+
 }
