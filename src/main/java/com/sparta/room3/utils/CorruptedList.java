@@ -1,7 +1,5 @@
 package com.sparta.room3.utils;
 
-import com.sparta.room3.controller.Employee;
-
 import java.util.ArrayList;
 
 public class CorruptedList {

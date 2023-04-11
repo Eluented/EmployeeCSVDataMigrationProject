@@ -14,6 +14,7 @@ import java.security.Key;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class EmployeeServiceCSV {
 
@@ -33,8 +34,8 @@ public class EmployeeServiceCSV {
         int corruptedRecords=0;
         int duplicatedRecords=0;
 
-        Set<String> duplicateRecords = new HashSet<>();
-        List<String> corruptRecords = new ArrayList<>();
+//        Set<String> duplicateRecords = new HashSet<>();
+//        List<String> corruptRecords = new ArrayList<>();
 
         try (FileReader fileReader = new FileReader(fileName);
              BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -66,13 +67,12 @@ public class EmployeeServiceCSV {
 
                 namePrefix = fields[1];
                 if (namePrefix.equals("Mr.") || namePrefix.equals("Mrs.") || namePrefix.equals("Ms.")) {
-                    continue;
-                }
 
-                else {
+                } else {
                     CorruptedList.addCorruptionsToList(fields);
 //                    corruptRecords.add(line);
                     corruptedRecords++;
+                    continue;
                 }
 
                 firstName = fields[2];
@@ -85,23 +85,23 @@ public class EmployeeServiceCSV {
                 lastName = fields[4];
 
                 gender = fields[5];
-                if (gender.equals('F') || gender.equals('M')) {
-                    continue;
-                }
-                else {
+                if (!gender.equals("F") && !gender.equals("M")) {
                     CorruptedList.addCorruptionsToList(fields);
 //                    corruptRecords.add(line);
-                }
-
-                email = fields[6];
-                if (email.contains("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
                     continue;
                 }
-                else{
+
+
+                email = fields[6];
+
+                String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+                Pattern regexemail = Pattern.compile(regex);
+                if (!regexemail.matcher(email).matches()) {
                     CorruptedList.addCorruptionsToList(fields);
 //                    corruptRecords.add(line);
                     corruptedRecords++;
+                    continue;
                 }
 
                 try {
@@ -124,11 +124,18 @@ public class EmployeeServiceCSV {
                 }
 
 
-                salary = Double.parseDouble(fields[9]);
+                try {
+                    salary = Double.parseDouble(fields[9]);
+                } catch (NumberFormatException e) {
+                    CorruptedList.addCorruptionsToList(fields);
+//                    corruptRecords.add(line);
+                    corruptedRecords++;
+                    continue;
+                }
 
 
                 Employee employee = new Employee(empId, namePrefix, firstName, middleInitial, lastName, gender, email, dateOfBirth, dateOfJoining, salary);
-                if (EmployeeMap.getEmployeeMap() == null ||EmployeeMap.getEmployeeMap().containsKey(employee.getEmpID()) == false) {
+                if (EmployeeMap.getEmployeeMap() == null || !EmployeeMap.getEmployeeMap().containsKey(employee.getEmpID())) {
                     EmployeeMap.addNewEmployeeToList(employee.getEmpID(), employee);
 
                 } else {

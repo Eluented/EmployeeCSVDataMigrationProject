@@ -12,7 +12,11 @@ public class EmployeeStarter {
     public static void start() {
 
         EmployeeServiceCSV.readCSVFile("src/main/resources/EmployeeRecords.csv");
-        System.out.println(EmployeeMap.getEmployeeMap());
+//        System.out.println(EmployeeMap.getEmployeeMap());
+        List<String[]> list = CorruptedList.getCorruptList();
+        for (String[] pip : list) {
+            System.out.println(Arrays.toString(pip));
+        }
 
     }
 
