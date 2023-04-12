@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class CorruptedList {
 
     private static CorruptedList corruptedList;
+
     private static ArrayList<String[]> listOfCorruptions;
+
 
     private CorruptedList(){}
 
@@ -25,6 +27,8 @@ public class CorruptedList {
         return listOfCorruptions;
 
     }
+
+
 
 
 }

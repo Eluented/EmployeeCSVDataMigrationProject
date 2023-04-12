@@ -3,6 +3,7 @@ package com.sparta.room3.controller;
 import com.sparta.room3.utils.CorruptedList;
 import com.sparta.room3.utils.DuplicateList;
 import com.sparta.room3.utils.EmployeeMap;
+import com.sparta.room3.utils.MissingFieldsList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.security.Key;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -32,12 +32,7 @@ public class EmployeeServiceCSV {
         String gender;
         String email;
         Double salary;
-        int corruptedRecords=0;
-        int duplicatedRecords=0;
-        int uniqueRecords=0;
 
-//        Set<String> duplicateRecords = new HashSet<>();
-//        List<String> corruptRecords = new ArrayList<>();
 
         try (FileReader fileReader = new FileReader(fileName);
              BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -51,19 +46,22 @@ public class EmployeeServiceCSV {
 
 
                 String[] fields = line.split(",");
-
-                if (fields.length != 10) {
-                    CorruptedList.addCorruptionsToList(fields);
-//                    corruptRecords.add(line);
-                    corruptedRecords++;
+                boolean recorded = false;
+                for (String field : fields) {
+                    if(field=="") {
+                        CorruptedList.addCorruptionsToList(fields);
+                        MissingFieldsList.addMissingFieldsToList(fields);
+                        recorded = true;
+                        break;
+                    }
+            }
+                if(recorded == true){
                     continue;
                 }
                 try {
                     empId = Integer.parseInt(fields[0]);
                 } catch (NumberFormatException e) {
                     CorruptedList.addCorruptionsToList(fields);
-//                    corruptRecords.add(line);
-                    corruptedRecords++;
                     continue;
                 }
 
@@ -73,8 +71,6 @@ public class EmployeeServiceCSV {
 
                 } else {
                     CorruptedList.addCorruptionsToList(fields);
-//                    corruptRecords.add(line);
-                    corruptedRecords++;
                     continue;
                 }
 
@@ -82,8 +78,6 @@ public class EmployeeServiceCSV {
                 middleInitial = fields[3];
                 if (middleInitial.length() > 1) {
                     CorruptedList.addCorruptionsToList(fields);
-//                    corruptRecords.add(line);
-                    corruptedRecords++;
                     continue;
                 }
                 lastName = fields[4];
@@ -91,8 +85,6 @@ public class EmployeeServiceCSV {
                 gender = fields[5];
                 if (!gender.equals("F") && !gender.equals("M")) {
                     CorruptedList.addCorruptionsToList(fields);
-//                    corruptRecords.add(line);
-                    corruptedRecords++;
                     continue;
                 }
 
@@ -104,8 +96,6 @@ public class EmployeeServiceCSV {
                 Pattern regexemail = Pattern.compile(regex);
                 if (!regexemail.matcher(email).matches()) {
                     CorruptedList.addCorruptionsToList(fields);
-//                    corruptRecords.add(line);
-                    corruptedRecords++;
                     continue;
                 }
 
@@ -113,8 +103,6 @@ public class EmployeeServiceCSV {
                     dateOfBirth = formatter.parse(fields[7]);
                 } catch (ParseException e) {
                     CorruptedList.addCorruptionsToList(fields);
-//                    corruptRecords.add(line);
-                    corruptedRecords++;
                     continue;
                 }
 
@@ -123,8 +111,6 @@ public class EmployeeServiceCSV {
                     dateOfJoining = formatter.parse(fields[8]);
                 } catch (ParseException e) {
                     CorruptedList.addCorruptionsToList(fields);
-//                    corruptRecords.add(line);
-                    corruptedRecords++;
                     continue;
                 }
 
@@ -133,13 +119,10 @@ public class EmployeeServiceCSV {
                     salary = Double.parseDouble(fields[9]);
                     if (salary <= 0.0) {
                         CorruptedList.addCorruptionsToList(fields);
-                        corruptedRecords++;
                         continue;
                     }
                 } catch (NumberFormatException e) {
                     CorruptedList.addCorruptionsToList(fields);
-//                    corruptRecords.add(line);
-                    corruptedRecords++;
                     continue;
                 }
 
@@ -150,20 +133,9 @@ public class EmployeeServiceCSV {
 
                 } else {
                     DuplicateList.addDuplicatesToList(employee);
-//                    duplicateRecords.add(line);
-                    duplicatedRecords++;
-
                 }
 
             }
-            if (EmployeeMap.getEmployeeMap() != null){
-                uniqueRecords = EmployeeMap.getEmployeeMap().size();
-            }
-         //   System.out.println(employeeSet);
-            System.out.println("Number of duplicate records: " + duplicatedRecords);
-            System.out.println("Number of corrupted records: " + corruptedRecords);
-            System.out.println("Number of unique records: " + uniqueRecords);
-
 
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage(),e);
