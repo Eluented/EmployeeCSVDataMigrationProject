@@ -97,18 +97,21 @@ public class EmployeeDAO implements DAO<EmployeeDTO> {
     @Override
     public List<EmployeeDTO> getAllEmployees() throws SQLException {
         String getEmployeesSQL = "SELECT * FROM employees";
+        List<EmployeeDTO> employees = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(getEmployeesSQL)) {
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return createEmployee(resultSet);
+            while (resultSet.next()) {
+                EmployeeDTO employee = createEmployee(resultSet);
+                employees.add(employee);
             }
-            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+        return employees;
     }
+
 
     private EmployeeDTO createEmployee(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");

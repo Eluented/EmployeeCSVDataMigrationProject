@@ -8,6 +8,6 @@ public interface DAO <T> {
     void saveAllEmployeeList() throws SQLException;
     void deleteEmployee(int id) throws SQLException;
     void updateEmployee(EmployeeDTO employee) throws SQLException;
-    void getAllEmployees() throws SQLException;
+    List <EmployeeDTO>getAllEmployees() throws SQLException;
     EmployeeDTO findEmployeeById(int id) throws SQLException;
 }
