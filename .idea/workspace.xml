@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee759449-81b3-4955-92bc-64905b985e5e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/room3/model/ConnectionProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/room3/controller/EmployeeServiceCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/room3/controller/EmployeeServiceCSV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/room3/controller/EmployeeStarter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/room3/controller/EmployeeStarter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/room3/model/DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/room3/model/DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/room3/model/EmployeeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/room3/model/EmployeeDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +51,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/katie-hulme/Sparta Global/Projects/Project_two/EmployeeCSVDataMigrationProject&quot;
+    &quot;last_opened_file_path&quot;: &quot;D:/coding/JavaDatabaseConnectivity&quot;
   }
 }</component>
   <component name="RecentsManager">
