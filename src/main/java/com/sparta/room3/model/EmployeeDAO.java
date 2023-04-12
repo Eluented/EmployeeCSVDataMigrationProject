@@ -11,6 +11,24 @@ public class EmployeeDAO implements DAO<EmployeeDTO> {
     private final Connection connection;
     private List<EmployeeDTO> employees;
 
+    String insertEmployeeSQL = "INSERT INTO employees (id, name_prefix, first_name, middle_initial, last_name, gender, email, date_of_birth, hire_date, salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    String selectEmployeeByIDSQL = "SELECT * FROM employees WHERE id = ?";
+    String updateEmployeeSQL = "UPDATE employees SET name_prefix=?, first_name=?, middle_initial=?, last_name=?, gender=?, email=?, date_of_birth=?, hire_date=?, salary=? WHERE id=?";
+    String deleteEmployeeSQL = "DELETE FROM employees WHERE id = ?";
+    String dropAllTablesSQL = "DROP TABLE IF EXISTS csv_employees.employees";
+    String createTableSQL = "CREATE TABLE csv_employees.employees (" +
+            "id INT PRIMARY KEY AUTO_INCREMENT," +
+            "name_prefix VARCHAR(5) ," +
+            "first_name VARCHAR(50) NOT NULL," +
+            "middle_initial VARCHAR(1)," +
+            "last_name VARCHAR(50) NOT NULL," +
+            "gender VARCHAR(1)," +
+            "email VARCHAR(50) NOT NULL," +
+            "date_of_birth DATE," +
+            "hire_date DATE NOT NULL," +
+            "salary DOUBLE NOT NULL" +
+            ");";
+
     public EmployeeDAO(Connection connection, List<EmployeeDTO> employeeList) {
         this.connection = connection;
         employees = new ArrayList<>(employeeList);
@@ -19,34 +37,25 @@ public class EmployeeDAO implements DAO<EmployeeDTO> {
     @Override
     public void createTable() throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("DROP TABLE IF EXISTS employees");
-            statement.executeUpdate(
-                    "CREATE TABLE employees (" +
-                            "id INT PRIMARY KEY AUTO_INCREMENT," +
-                            "name_prefix VARCHAR(5) NOT NULL," +
-                            "first_name VARCHAR(50) NOT NULL," +
-                            "middle_initial VARCHAR(1)," +
-                            "last_name VARCHAR(50) NOT NULL," +
-                            "gender VARCHAR(1)," +
-                            "email VARCHAR(50) NOT NULL UNIQUE," +
-                            "date_of_birth DATE NOT NULL," +
-                            "hire_date DATE NOT NULL," +
-                            "salary DOUBLE NOT NULL" +
-                            ")"
-            );
+            statement.executeUpdate(dropAllTablesSQL);
+            statement.executeUpdate(createTableSQL);
         }
     }
 
     @Override
     public void saveAllEmployeeList() throws SQLException {
-        String sql = "INSERT INTO employees (first_name, last_name, email, hire_date, salary) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(insertEmployeeSQL)) {
             for (EmployeeDTO employee : employees) {
-                statement.setString(1, employee.getFirstName());
-                statement.setString(2, employee.getLastName());
-                statement.setString(3, employee.getEmail());
-                statement.setDate(4, new java.sql.Date(employee.getHireDate().getTime()));
-                statement.setDouble(5, employee.getSalary());
+                statement.setInt(1, employee.getID());
+                statement.setString(2, employee.getNamePrefix());
+                statement.setString(3, employee.getFirstName());
+                statement.setString(4, employee.getMiddleInitial());
+                statement.setString(5, employee.getLastName());
+                statement.setString(6, employee.getGender());
+                statement.setString(7, employee.getEmail());
+                statement.setDate(8, new java.sql.Date(employee.getDateOfBirth().getTime()));
+                statement.setDate(9, new java.sql.Date(employee.getHireDate().getTime()));
+                statement.setDouble(10, employee.getSalary());
                 statement.executeUpdate();
             }
         }
@@ -54,8 +63,7 @@ public class EmployeeDAO implements DAO<EmployeeDTO> {
 
     @Override
     public EmployeeDTO findEmployeeById(int id) throws SQLException {
-        String sql = "SELECT * FROM employees WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(selectEmployeeByIDSQL)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -67,8 +75,7 @@ public class EmployeeDAO implements DAO<EmployeeDTO> {
 
     @Override
     public void updateEmployee(EmployeeDTO employee) throws SQLException {
-        String sql = "UPDATE employees SET name_prefix=?, first_name=?, middle_initial=?, last_name=?, gender=?, email=?, date_of_birth=?, hire_date=?, salary=? WHERE id=?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(updateEmployeeSQL)) {
             statement.setString(1, employee.getNamePrefix());
             statement.setString(2, employee.getFirstName());
             statement.setString(3, employee.getMiddleInitial());
@@ -86,8 +93,7 @@ public class EmployeeDAO implements DAO<EmployeeDTO> {
 
     @Override
     public void deleteEmployee(int id) throws SQLException {
-        String sql = "DELETE FROM employees WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(deleteEmployeeSQL)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         }
