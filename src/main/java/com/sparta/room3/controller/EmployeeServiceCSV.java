@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 public class EmployeeServiceCSV {
 
     private static final Logger logger= LogManager.getLogger(EmployeeFactory.class);
+
     public static void readCSVFile(String fileName) {
         SimpleDateFormat formatter = new SimpleDateFormat("DD/MM/YYYY");
         int empId;
@@ -32,6 +33,7 @@ public class EmployeeServiceCSV {
         Double salary;
         int corruptedRecords=0;
         int duplicatedRecords=0;
+        int uniqueRecords=0;
 
 //        Set<String> duplicateRecords = new HashSet<>();
 //        List<String> corruptRecords = new ArrayList<>();
@@ -81,6 +83,7 @@ public class EmployeeServiceCSV {
                     CorruptedList.addCorruptionsToList(fields);
 //                    corruptRecords.add(line);
                     corruptedRecords++;
+                    continue;
                 }
                 lastName = fields[4];
 
@@ -88,6 +91,7 @@ public class EmployeeServiceCSV {
                 if (!gender.equals("F") && !gender.equals("M")) {
                     CorruptedList.addCorruptionsToList(fields);
 //                    corruptRecords.add(line);
+                    corruptedRecords++;
                     continue;
                 }
 
@@ -129,7 +133,7 @@ public class EmployeeServiceCSV {
                     if (salary <= 0.0) {
                         CorruptedList.addCorruptionsToList(fields);
                         corruptedRecords++;
-
+                        continue;
                     }
                 } catch (NumberFormatException e) {
                     CorruptedList.addCorruptionsToList(fields);
@@ -151,10 +155,13 @@ public class EmployeeServiceCSV {
                 }
 
             }
+            if (EmployeeMap.getEmployeeMap() != null){
+                uniqueRecords = EmployeeMap.getEmployeeMap().size();
+            }
          //   System.out.println(employeeSet);
             System.out.println("Number of duplicate records: " + duplicatedRecords);
             System.out.println("Number of corrupted records: " + corruptedRecords);
-            System.out.println("Number of unique records: " +EmployeeMap.getEmployeeMap().size());
+            System.out.println("Number of unique records: " + uniqueRecords);
 
 
         } catch (FileNotFoundException e) {
