@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee759449-81b3-4955-92bc-64905b985e5e" name="Changes" comment="" />
+    <list default="true" id="ee759449-81b3-4955-92bc-64905b985e5e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sparta/room3/ReadCSVMethodTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sparta/room3/ReadCSVMethodTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

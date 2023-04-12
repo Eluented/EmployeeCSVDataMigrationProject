@@ -1,23 +1,54 @@
 package com.sparta.room3.controller;
 
-import com.sparta.room3.utils.CorruptedList;
-import com.sparta.room3.utils.DuplicateList;
-import com.sparta.room3.utils.EmployeeMap;
+import com.sparta.room3.lists.EmployeeMap;
+import com.sparta.room3.model.ConnectionProvider;
+import com.sparta.room3.model.EmployeeDAO;
+import com.sparta.room3.model.EmployeeDTO;
+import org.apache.logging.log4j.Logger;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
-public class EmployeeStarter {
-    public static void start() {
+import org.apache.logging.log4j.LogManager;
 
-        EmployeeServiceCSV.readCSVFile("src/main/resources/EmployeeRecords.csv");
-//        System.out.println(EmployeeMap.getEmployeeMap());
-        List<String[]> list = CorruptedList.getCorruptList();
-        for (String[] pip : list) {
-            System.out.println(Arrays.toString(pip));
-    }
+public class EmployeeStarter {
+    private static final Logger logger = LogManager.getLogger(EmployeeStarter.class);
+
+    public static void start(String fileName) {
+        List<EmployeeDTO> employeeList = new ArrayList<>();
+        EmployeeServiceCSV.readCSVFile(fileName);
+
+        HashMap<Integer, Employee> employeeMap = EmployeeMap.getEmployeeMap();
+        for (Employee employee : employeeMap.values()) {
+            employeeList.add(new EmployeeDTO(
+                    employee.getEmpID(),
+                    employee.getNamePrefix(),
+                    employee.getFirstName(),
+                    employee.getMiddleInitial(),
+                    employee.getLastName(),
+                    employee.getGender(),
+                    employee.getEmail(),
+                    employee.getDateOfBirth(),
+                    employee.getDateOfJoining(),
+                    employee.getSalary()
+            ));
         }
+
+        try (Connection connection = ConnectionProvider.getConnection()) {
+
+            EmployeeDAO employeeDAO = new EmployeeDAO(connection, employeeList);
+
+            employeeDAO.createTable();
+            employeeDAO.saveAllEmployeeList();
+        } catch (SQLException e) {
+            logger.error("Error accessing database", e);
+        }
+    }
+
 
     }
 
