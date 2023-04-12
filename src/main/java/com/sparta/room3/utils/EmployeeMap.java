@@ -26,4 +26,8 @@ public class EmployeeMap {
     public static HashMap<Integer, Employee> getEmployeeMap(){
         return mapOfEmployees;
     }
+
+    public static int howManyUniqueEmployees(){
+        return mapOfEmployees.size();
+    }
 }

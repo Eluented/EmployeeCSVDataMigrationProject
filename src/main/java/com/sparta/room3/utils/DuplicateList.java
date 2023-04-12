@@ -25,6 +25,9 @@ public class DuplicateList {
     public static ArrayList<Employee> getDuplicateList(){
 
         return listOfDuplicates;
+    }
 
+    public static int howManyDuplicateEmployees(){
+        return listOfDuplicates.size();
     }
 }

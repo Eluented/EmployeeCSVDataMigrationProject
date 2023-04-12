@@ -26,5 +26,9 @@ public class CorruptedList {
 
     }
 
+    public static int howManyCorruptEmployees(){
+        return listOfCorruptions.size();
+    }
+
 
 }
