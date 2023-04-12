@@ -16,10 +16,10 @@ public class EmployeeStarter {
         List<String[]> list = CorruptedList.getCorruptList();
         for (String[] pip : list) {
             System.out.println(Arrays.toString(pip));
+    }
         }
 
     }
 
 
-    }
 

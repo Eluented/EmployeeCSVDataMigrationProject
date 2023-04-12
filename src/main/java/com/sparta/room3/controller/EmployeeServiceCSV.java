@@ -66,7 +66,8 @@ public class EmployeeServiceCSV {
                 }
 
                 namePrefix = fields[1];
-                if (namePrefix.equals("Mr.") || namePrefix.equals("Mrs.") || namePrefix.equals("Ms.")) {
+                if (namePrefix.equals("Mr.") || namePrefix.equals("Mrs.") || namePrefix.equals("Ms.")
+                    || namePrefix.equals("Dr.") || namePrefix.equals("Hon.") || namePrefix.equals("Prof."))  {
 
                 } else {
                     CorruptedList.addCorruptionsToList(fields);
@@ -126,6 +127,11 @@ public class EmployeeServiceCSV {
 
                 try {
                     salary = Double.parseDouble(fields[9]);
+                    if (salary <= 0.0) {
+                        CorruptedList.addCorruptionsToList(fields);
+                        corruptedRecords++;
+
+                    }
                 } catch (NumberFormatException e) {
                     CorruptedList.addCorruptionsToList(fields);
 //                    corruptRecords.add(line);
