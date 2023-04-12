@@ -23,11 +23,13 @@ public class EmployeeDAO implements DAO<Employee>{
                     "CREATE TABLE employees (" +
                             "id INT PRIMARY KEY AUTO_INCREMENT," +
                             "first_name VARCHAR(50) NOT NULL," +
+                            "middle_initial VARCHAR(10)," +
                             "last_name VARCHAR(50) NOT NULL," +
+                            "gender VARCHAR(1)" +
                             "email VARCHAR(50) NOT NULL UNIQUE," +
+                            "date_of_birth DATE NOT NULL" +
                             "hire_date DATE NOT NULL," +
                             "salary DOUBLE NOT NULL," +
-                            "department VARCHAR(50) NOT NULL" +
                             ")"
             );
         }
