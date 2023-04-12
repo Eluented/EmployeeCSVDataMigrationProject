@@ -3,68 +3,68 @@ package com.sparta.room3.model;
 import java.util.Date;
 
 public class EmployeeDTO {
-    private int empID;
-    private String namePrefix;
-    private String firstName;
-    private String middleInitial;
-    private String lastName;
+    private int id;
+    private String name_prefix;
+    private String first_name;
+    private String middle_initial;
+    private String last_name;
     private String gender;
     private String email;
-    private Date dateOfBirth;
-    private Date dateOfJoining;
+    private Date date_of_birth;
+    private Date hire_date;
     private Double salary;
 
-    public EmployeeDTO(int empID, String namePrefix, String firstName, String middleInitial, String lastName, String gender, String email, Date dateOfBirth, Date dateOfJoining, Double salary) {
-        this.empID = empID;
-        this.namePrefix = namePrefix;
-        this.firstName = firstName;
-        this.middleInitial = middleInitial;
-        this.lastName = lastName;
+    public EmployeeDTO(int id, String name_prefix, String first_name, String middle_initial, String last_name, String gender, String email, Date date_of_birth, Date hire_date, Double salary) {
+        this.id = id;
+        this.name_prefix = name_prefix;
+        this.first_name = first_name;
+        this.middle_initial = middle_initial;
+        this.last_name = last_name;
         this.gender = gender;
         this.email = email;
-        this.dateOfBirth = dateOfBirth;
-        this.dateOfJoining = dateOfJoining;
+        this.date_of_birth = date_of_birth;
+        this.hire_date = hire_date;
         this.salary = salary;
     }
 
-    public int getEmpID() {
-        return empID;
+    public int getID() {
+        return id;
     }
 
-    public void setEmpID(int empID) {
-        this.empID = empID;
+    public void setID(int id) {
+        this.id = id;
     }
 
     public String getNamePrefix() {
-        return namePrefix;
+        return name_prefix;
     }
 
     public void setNamePrefix(String namePrefix) {
-        this.namePrefix = namePrefix;
+        this.name_prefix = namePrefix;
     }
 
     public String getFirstName() {
-        return firstName;
+        return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String first_name) {
+        this.first_name = first_name;
     }
 
     public String getMiddleInitial() {
-        return middleInitial;
+        return middle_initial;
     }
 
-    public void setMiddleInitial(String middleInitial) {
-        this.middleInitial = middleInitial;
+    public void setMiddleInitial(String middle_initial) {
+        this.middle_initial = middle_initial;
     }
 
     public String getLastName() {
-        return lastName;
+        return last_name;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.last_name = lastName;
     }
 
     public String getGender() {
@@ -84,19 +84,19 @@ public class EmployeeDTO {
     }
 
     public Date getDateOfBirth() {
-        return dateOfBirth;
+        return date_of_birth;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+        this.date_of_birth = dateOfBirth;
     }
 
-    public Date getDateOfJoining() {
-        return dateOfJoining;
+    public Date getHireDate() {
+        return hire_date;
     }
 
-    public void setDateOfJoining(Date dateOfJoining) {
-        this.dateOfJoining = dateOfJoining;
+    public void setHireDate(Date hireDate) {
+        this.hire_date = hireDate;
     }
 
     public Double getSalary() {

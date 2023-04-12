@@ -1,4 +1,4 @@
-package com.sparta.room3.utils;
+package com.sparta.room3.lists;
 
 import java.util.ArrayList;
 

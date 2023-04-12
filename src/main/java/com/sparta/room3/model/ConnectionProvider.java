@@ -11,7 +11,7 @@ public class ConnectionProvider {
 
     private static Connection connection=null;
 
-    private static final String URL="jdbc:mysql://localhost:3306/spartaglobal?serverTimerzone=GMT";
+    private static final String URL="jdbc:mysql://localhost:3306/csv_employees";
 
     private static Properties properties=new Properties();
 

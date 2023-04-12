@@ -6,4 +6,8 @@ import com.sparta.room3.controller.Employee;
 public interface DAO <T> {
     void createTable() throws SQLException;
     void saveAllEmployeeList() throws SQLException;
+    void deleteEmployee(int id) throws SQLException;
+    void updateEmployee(EmployeeDTO employee) throws SQLException;
+    List <EmployeeDTO>getAllEmployees() throws SQLException;
+    EmployeeDTO findEmployeeById(int id) throws SQLException;
 }
