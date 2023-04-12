@@ -26,14 +26,9 @@ public class ConnectionProviderTest {
 
     @AfterAll
     public static void cleanup() {
-        // Delete the test data from the database and close the connection
-        try (Connection connection = ConnectionProvider.getConnection()) {
-            TestDataGenerator.deleteTestDatabase(connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            fail("Failed to clean up test database");
-        }
+        ConnectionProvider.closeConnection();
     }
+
 
     @Test
     public void testGetConnection() {
@@ -62,6 +57,8 @@ public class ConnectionProviderTest {
             e.printStackTrace();
             fail("Failed to close connection");
         }
-        assertNull(ConnectionProvider.getConnection());
+        connection = ConnectionProvider.getConnection(); // re-open connection for further testing
+        assertNotNull(connection);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.sparta.room3;
 
+import com.sparta.room3.model.ConnectionProvider;
 import com.sparta.room3.model.EmployeeDAO;
 import com.sparta.room3.model.EmployeeDTO;
 import org.junit.jupiter.api.*;
@@ -10,16 +11,13 @@ import java.util.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class EmployeeDAOTest {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/?user=root"; // this needs a fix
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "password";
     private static Connection connection;
     private static List<EmployeeDTO> employeeList;
     private static EmployeeDAO employeeDAO;
 
     @BeforeAll
     static void setup() throws SQLException {
-        connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+        connection = ConnectionProvider.getConnection();
         employeeList = new ArrayList<>(Arrays.asList(
                 new EmployeeDTO(1, "Mr.", "John", null, "Doe", "M", "johndoe@example.com",
                         Date.valueOf(LocalDate.of(1990, 1, 1)), Date.valueOf(LocalDate.now()), 50000.0),

@@ -38,17 +38,17 @@ public class ConnectionProvider {
         return connection;
     }
 
-    public static void closeConnection(){
-        if(connection!=null){
-
+    public static void closeConnection() {
+        if (connection != null) {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println("Failed to close connection: " + e.getMessage());
             }
-
         }
     }
+
+
 
 
 
