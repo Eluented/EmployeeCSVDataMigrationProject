@@ -21,7 +21,7 @@ The Lists and The Map where created as singletons because there will never need 
 
 **Tests**
 
-Many test where written for Phase 1. Such as:
+Many test where written for Phase 1. 
+For Example:
 - Checking that our List/Map objects where being created when we ran the readCSVFile.
 - Checking that the method was correctly sorting our data.
-- 
