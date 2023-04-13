@@ -35,5 +35,53 @@ git clone https://github.com/yourusername/employeecsvdatamigration.git
 5. You can verify that the data was successfully migrated by running the EmployeeDaoTest class, which contains JUnit tests for the DAO pattern implementation.
 
 
-Credits
-This project was created by Group3 and is maintained by Group3.
+Project Roles:
+
+| Role                | Contributor        | Contact                        |
+|---------------------|--------------------|--------------------------------|
+| Scrum & Github Lead | Onur Belek         | Obelek@spartaglobal.com        |
+| Dev/Tester          | Anusha Gampa       | AGampa@spartaglobal.com        |
+| Dev/Tester          | Chloe Vera Turner  | cturner@spartaglobal.com       |
+| Dev/Tester          | Omar Hussain       | ohussain@spartaglobal.com      |
+| Dev/Tester          | Katie Olivia Hulme | katiehulme@spartaglobal.com    |
+| Dev/Tester          | Ajay Balakrishnan  | abalakrishnan@spartaglobal.com |
+
+
+
+**Details of the Functionality in Major Sections:**
+
+EmployeeServiceCSV.java:
+
+     Our EmployeeServiceCSV class reads the provided CSV file and split various details of an employee, while reading it parse the data and check for duplicate data and corrupted data. This corrupted and duplicate data can be handled by respective sets for further analysis.
+
+
+**Employee.java:**
+
+       This class provides different getters and setters for various fields of an employee.
+
+**Utils Package:**
+
+     This utils package contains different java classes like Corrupted list, Duplicate list, Employee map classes which stores corrupted records, duplicate records, and unique records of the employee csv file respectively.
+
+**ConnectionProvider.java:**
+
+   This class establish connection to the Database to process queries in the Database. And also, it has a method for closing the connection.
+
+**DAO interface:**
+
+  This interface provides some abstract methods for CRUD operations on database, which needs to be implemented in subclasses.
+
+**Employee DAO:**
+
+     This class implements DAO interface, and it has CRUD operations' method implementation in it.
+
+**Employee DTO:**
+
+     This class helps to transfer data between different applications.
+
+
+**Summary of Testing:**
+
+     We used Junit in our program to test the corrupted list, duplicate list and unique records and also we tested database connection whether it is closing properly after using resources or not.  
+
+
